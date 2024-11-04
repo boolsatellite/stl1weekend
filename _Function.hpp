@@ -27,8 +27,8 @@ private:
     struct _FuncImpl : _FuncBase { // FuncImpl 会被实例化多次，每个不同的仿函数类都产生一次实例化
         _Fn _M_f;
 
-        template <class ..._CArgs>
-        explicit _FuncImpl(std::in_place_t, _CArgs &&...__args) : _M_f(std::forward<_CArgs>(__args)...) {}
+        template <class _CArgs>
+        explicit _FuncImpl(std::in_place_t, _CArgs &&__args) : _M_f(std::forward<_CArgs>(__args)) {}
 
         _Ret _M_call(_Args ...__args) override {
             // 完美转发所有参数给构造时保存的仿函数对象：
